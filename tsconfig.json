@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    "esModuleInterop": true,
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    "strict": true,
+    "strictNullChecks": false,
+    "module": "commonjs",
+    "sourceMap": true,
+    "baseUrl": "."
+  },
+  "include": ["src"]
+}

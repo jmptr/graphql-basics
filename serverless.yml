@@ -1,0 +1,64 @@
+service: graphql-basics
+
+provider:
+  name: aws
+  region: ${opt:region, 'us-west-2'}
+  stage: ${opt:stage, 'dev'}
+
+  # environment variables set at the provider level are distributed to every child
+  # resource in this project
+  environment:
+    todosTable: ${self:service}-todos-${self:provider.stage}
+
+  iamRoleStatements:
+    # Allow actions for StoreHoursTable (DynamoDB)
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 'arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.todosTable}'
+
+# Package instructions for the lambda functions in this project
+package:
+  exclude:
+    - src/**
+    - resources/**
+  include:
+    - dist/**
+
+functions:
+  # graphql playground
+  graphqlplayground:
+    handler: dist/handler.query
+    events:
+      - http:
+          method: get
+          cors: true
+          path: playground
+
+  # graphql endpoint
+  graphql:
+    handler: dist/handler.query
+    events:
+      # the graphql endpoint supports HTTP-GET for queries. This allows the
+      # application to cache results in APIGateway when relevant
+      - http:
+          method: get
+          cors: true
+          path: query
+      - http:
+          method: post
+          cors: true
+          path: query
+
+resources:
+  # API Gateway Error templates
+  # This is necessary in order to allow CORS and authorizers to interact
+  - ${file(resources/api-gateway-errors.yml)}
+
+  # DynamoDB
+  - ${file(resources/todos-table.yml)}

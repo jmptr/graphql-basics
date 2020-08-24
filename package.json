@@ -1,0 +1,34 @@
+{
+  "name": "rcc-store-hours-api",
+  "private": true,
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "import": "ts-node src/import-asset-dev.ts",
+    "prebuild": "rimraf dist",
+    "build": "tsc --outDir dist",
+    "predeploy": "npm run build",
+    "deploy": "serverless deploy"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.56",
+    "@types/node": "^14.0.13",
+    "aws-sdk": "^2.711.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "serverless": "^1.73.1",
+    "serverless-s3-sync": "^1.14.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "apollo-datasource": "^0.7.1",
+    "apollo-server-lambda": "^2.15.0",
+    "apollo-server-plugin-response-cache": "^0.5.3",
+    "aws-lambda": "^1.0.6",
+    "axios": "^0.19.2",
+    "graphql": "^15.1.0",
+    "graphql-tag": "^2.10.3"
+  }
+}
