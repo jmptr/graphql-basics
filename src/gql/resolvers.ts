@@ -20,17 +20,16 @@ interface Resolver<TArgs, TOut> {
 }
 
 const getMyTodos: Resolver<{}, TodoModel[]> = async (parent, args, ctx) => {
-  console.log('getMyTodos');
+  console.log('getMyTodos', args);
   return ctx.dataSources.todosAPI.getUserTodos();
 };
 
-const updateTodo: Resolver<{ input: UpdateTodoInput }, Boolean> = async (
-  parent,
-  args,
-  ctx
-) => {
-  console.log('updateTodo', args.input);
-  await ctx.dataSources.todosAPI.updateUserTodo(args.input);
+const updateTodo: Resolver<
+  { updateTodoInput: UpdateTodoInput },
+  Boolean
+> = async (parent, args, ctx) => {
+  console.log('updateTodo', args);
+  await ctx.dataSources.todosAPI.updateUserTodo(args.updateTodoInput);
   return true;
 };
 

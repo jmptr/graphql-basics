@@ -5,7 +5,7 @@ export default gql`
     """
     Returns what we know about the currently logged in user
     """
-    getMyTodos(query: TodoQuery): [TodoModel!]!
+    getMyTodos: [TodoModel!]!
   }
 
   type Mutation {
@@ -24,10 +24,6 @@ export default gql`
     updateTime: Float
     content: String!
     complete: Boolean!
-  }
-
-  input TodoQuery {
-    complete: Boolean
   }
 
   input AddTodoInput {

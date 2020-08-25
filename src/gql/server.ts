@@ -16,15 +16,18 @@ export default new ApolloServer({
     endpoint: '/dev/playground',
     tabs: [
       {
+        name: 'List Todos',
         endpoint: '/dev/query',
         query: `{
   getMyTodos {
+    createTime
     content
     complete
   }
 }`,
       },
       {
+        name: 'Add Todo',
         endpoint: '/dev/query',
         query: `mutation addTodo($addTodoInput: AddTodoInput!) {
   addTodo(addTodoInput: $addTodoInput)
@@ -37,6 +40,7 @@ export default new ApolloServer({
 }`,
       },
       {
+        name: 'Update Todo',
         endpoint: '/dev/query',
         query: `mutation updateTodo($updateTodoInput: UpdateTodoInput!) {
   updateTodo(updateTodoInput: $updateTodoInput)

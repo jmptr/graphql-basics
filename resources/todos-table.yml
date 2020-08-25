@@ -8,7 +8,11 @@ Resources:
       AttributeDefinitions:
         - AttributeName: userName
           AttributeType: S
+        - AttributeName: createTime
+          AttributeType: N
       KeySchema:
         - AttributeName: userName
           KeyType: HASH
+        - AttributeName: createTime
+          KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
